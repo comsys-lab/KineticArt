@@ -1,0 +1,7 @@
+*.o
+src/placement_manager/cxl-scheduler/cxl-scheduler
+src/placement_manager/cxl-scheduler/mtier-agent
+src/placement_manager/nri-mtier/mtier
+*.kubeconfig
+*.log
+.DS_Store
