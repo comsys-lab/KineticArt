@@ -33,6 +33,5 @@ workloads on host memory slack, considering bandwidth contention.
 ## Build
 
 ```bash
-make        # eBPF object and node programs
-make go     # cxl-scheduler, mtier-agent, mtier-plugin
+make
 ```

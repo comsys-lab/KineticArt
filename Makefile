@@ -22,8 +22,9 @@ BINS := $(addprefix $(BUILD)/, \
 
 GOBINS := $(addprefix $(BUILD)/, cxl-scheduler mtier-agent mtier-plugin)
 
-.PHONY: all go clean
-all: $(BINS)
+.PHONY: all node go clean
+all: node go
+node: $(BINS)
 go: $(GOBINS)
 
 $(BUILD):
