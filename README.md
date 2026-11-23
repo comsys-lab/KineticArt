@@ -36,6 +36,3 @@ workloads on host memory slack, considering bandwidth contention.
 make        # eBPF object and node programs
 make go     # cxl-scheduler, mtier-agent, mtier-plugin
 ```
-
-Both targets write to `build/`. `LIBBPF_CFLAGS` and `LIBBPF_LIBS` select a libbpf other than
-the system one.
