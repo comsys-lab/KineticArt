@@ -58,7 +58,8 @@ static long rd_long(const char *fmt, ...){
 static int node_cpulist_empty(int node){
     char p[256], b[64]; snprintf(p, sizeof(p), "/sys/devices/system/node/node%d/cpulist", node);
     FILE *f = fopen(p, "r"); if (!f) return -1; char *r = fgets(b, sizeof(b), f); fclose(f);
-    if (!r) return 1; return (b[0] == '\n' || b[0] == '\0') ? 1 : 0;
+    if (!r) return 1;
+    return (b[0] == '\n' || b[0] == '\0') ? 1 : 0;
 }
 
 static int detect_cxl_node(void){
@@ -116,7 +117,8 @@ static int from_cli(const char *s, char cg[][512], int max){
 static void parse_cpus(const char *s, cpu_set_t *set){
     CPU_ZERO(set); char b[256]; strncpy(b, s, sizeof(b)-1); b[sizeof(b)-1]=0;
     char *t = strtok(b, ","); while (t) { int a, z; if (sscanf(t, "%d-%d", &a, &z) == 2) { for (int i=a;i<=z;i++) CPU_SET(i,set); }
-        else if (sscanf(t, "%d", &a) == 1) CPU_SET(a, set); t = strtok(NULL, ","); }
+        else if (sscanf(t, "%d", &a) == 1) CPU_SET(a, set);
+        t = strtok(NULL, ","); }
 }
 
 #define SP "%s/%d/contexts/0/schemes/0"

@@ -57,8 +57,10 @@ int main(int argc, char **argv){
         else { fprintf(stderr,"usage: --nodes N,N --kb K --period-ms P --burst-ms B --chunks C [--json FILE] [--base-periods N] [--base NS,NS] [--avg N] [--spread-ms S] [--jitter-ms J]\n"); return 1; }
     }
     if(kb<=0 || kb%4){ fprintf(stderr,"--kb must be a positive multiple of 4\n"); return 1; }
-    if(chunks<1) chunks=1; if(chunks>64) chunks=64;
-    if(avgn<1) avgn=1; if(avgn>64) avgn=64;
+    if(chunks<1) chunks=1;
+    if(chunks>64) chunks=64;
+    if(avgn<1) avgn=1;
+    if(avgn>64) avgn=64;
     size_t bytes=(size_t)kb*1024;
     void *buf[MAXN];
     for(int k=0;k<nn;k++) buf[k]=mkbuf(nodes[k],bytes);
@@ -86,7 +88,8 @@ int main(int argc, char **argv){
             qsort(ns,chunks,sizeof(double),cmpd);
             printf("P %.3f %d %.2f %.2f %.2f %llu\n", wall(), nodes[k], mean[k], ns[0], ns[chunks-1], (unsigned long long)tot);
         }
-        for(int k=0;k<nn;k++) hist[k][nh%avgn]=mean[k]; nh++;
+        for(int k=0;k<nn;k++) hist[k][nh%avgn]=mean[k];
+        nh++;
         double av[MAXN]; int na = nh<avgn?nh:avgn;
         for(int k=0;k<nn;k++){ av[k]=0; for(int i=0;i<na;i++) av[k]+=hist[k][i]; av[k]/=na; }
         if(nacc<basep && nacc<256){ for(int k=0;k<nn;k++) acc[k][nacc]=mean[k]; nacc++;
